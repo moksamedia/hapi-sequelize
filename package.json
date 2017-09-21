@@ -1,7 +1,7 @@
 {
-  "name": "hapi-sequelize",
-  "version": "3.0.4",
-  "description": "A Hapi plugin for the fabulous Sequelize ORM",
+  "name": "happier-sequelize",
+  "version": "0.1.0",
+  "description": "An updated fork of the hapi-sequelize project",
   "main": "lib/index.js",
   "scripts": {
     "test": "lab",
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/danecando/hapi-sequelize.git"
+    "url": "https://github.com/moksamedia/hapi-sequelize"
   },
   "keywords": [
     "sequelize",
@@ -26,7 +26,7 @@
     "node",
     "javascript"
   ],
-  "author": "Dane Grant",
+  "author": "Andrew Hughes",
   "license": "MIT",
   "dependencies": {
     "glob": "^7.0.3",
@@ -43,7 +43,7 @@
     "sinon": "^1.17.6"
   },
   "peerDependencies": {
-    "sequelize": "^3.x"
+    "sequelize": "^4.x"
   },
   "engines": {
     "node": ">=4.0.0"
