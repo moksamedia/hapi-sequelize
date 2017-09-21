@@ -1,4 +1,4 @@
-## hapi-sequelize - a hapi plugin for the sequelize orm
+## happier-sequelize - a Hapi plugin for the Sequelize ORM based on hapi-sequelize
 
 [![npm](https://img.shields.io/npm/dm/localeval.svg)](https://www.npmjs.com/package/happier-sequelize)
 
