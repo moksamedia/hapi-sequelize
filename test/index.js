@@ -15,7 +15,7 @@ const lab = exports.lab = Lab.script();
 const test = lab.test;
 const expect = Code.expect;
 
-lab.suite('hapi-sequelize', () => {
+lab.suite('happier-sequelize', () => {
 
   test('plugin works', { parallel: true }, (done) => {
 
@@ -23,9 +23,9 @@ lab.suite('hapi-sequelize', () => {
     server.connection();
 
     const sequelize = new Sequelize('shop', 'root', '', {
-      host: '127.0.0.1',
-      port: 3306,
-      dialect: 'mysql'
+      host: 'localhost',
+      port: 5432,
+      dialect: 'postgres'
     });
 
     const onConnect = function (database) {
@@ -65,9 +65,9 @@ lab.suite('hapi-sequelize', () => {
     server.connection();
 
     const sequelize = new Sequelize('shop', 'root', '', {
-      host: '127.0.0.1',
-      port: 3306,
-      dialect: 'mysql'
+      host: 'localhost',
+      port: 5432,
+      dialect: 'postgres'
     });
 
     server.register([

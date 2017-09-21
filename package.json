@@ -30,16 +30,16 @@
   "license": "MIT",
   "dependencies": {
     "glob": "^7.0.3",
-    "joi": "^8.1.0"
+    "joi": "^11.0.2"
   },
   "devDependencies": {
-    "code": "^4.0.0",
+    "code": "^4.1.0",
     "coveralls": "^2.11.14",
-    "eslint": "^3.7.1",
+    "eslint": "^4.1.1",
     "hapi": "^15.1.1",
-    "lab": "^11.1.0",
+    "lab": "^14.1.0",
     "mysql": "^2.10.2",
-    "sequelize": "^3.24.3",
+    "sequelize": "^4.x",
     "sinon": "^1.17.6"
   },
   "peerDependencies": {
