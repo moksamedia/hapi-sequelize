@@ -29,16 +29,19 @@
   "author": "Andrew Hughes",
   "license": "MIT",
   "dependencies": {
-    "glob": "^7.0.3",
+    "glob": "^7.1.2",
     "joi": "^11.0.2"
   },
   "devDependencies": {
+    "ajv": "^5.2.2",
     "code": "^4.1.0",
     "coveralls": "^2.11.14",
     "eslint": "^4.1.1",
     "hapi": "^15.1.1",
     "lab": "^14.1.0",
     "mysql": "^2.10.2",
+    "pg": "^7.3.0",
+    "pg-hstore": "^2.3.2",
     "sequelize": "^4.x",
     "sinon": "^1.17.6"
   },
