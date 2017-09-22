@@ -1,6 +1,6 @@
 {
   "name": "happier-sequelize",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "An updated fork of the hapi-sequelize project",
   "main": "lib/index.js",
   "scripts": {
@@ -29,8 +29,10 @@
   "author": "Andrew Hughes",
   "license": "MIT",
   "dependencies": {
+    "async": "^2.5.0",
     "glob": "^7.1.2",
-    "joi": "^11.0.2"
+    "joi": "^11.0.2",
+    "lodash": "^4.17.4"
   },
   "devDependencies": {
     "ajv": "^5.2.2",
