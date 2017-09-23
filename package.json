@@ -1,6 +1,6 @@
 {
   "name": "happier-sequelize",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "An updated fork of the hapi-sequelize project",
   "main": "lib/index.js",
   "scripts": {
@@ -40,11 +40,11 @@
     "coveralls": "^2.11.14",
     "eslint": "^4.1.1",
     "hapi": "^15.1.1",
-    "lab": "^14.1.0",
+    "lab": "^14.3.1",
     "mysql": "^2.10.2",
-    "pg": "^7.3.0",
+    "pg": "6.4.2",
     "pg-hstore": "^2.3.2",
-    "sequelize": "^4.x",
+    "sequelize": "^4.10.2",
     "sinon": "^1.17.6"
   },
   "peerDependencies": {

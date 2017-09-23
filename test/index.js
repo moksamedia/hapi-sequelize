@@ -15,6 +15,20 @@ const lab = exports.lab = Lab.script();
 const test = lab.test;
 const expect = Code.expect;
 
+const databaseHost = 'localhost';
+const databasePort = 5432;
+const databaseDialect = 'postgres';
+const databaseUsername = 'postgres';
+const databasePassword = 'postgres';
+
+function getSequelize() {
+  return new Sequelize(databaseUsername, databasePassword, '', {
+    host: databaseHost,
+    port: databasePort,
+    dialect: databaseDialect
+  });
+}
+
 lab.suite('happier-sequelize', () => {
 
   test('plugin works', { parallel: true }, (done) => {
@@ -22,15 +36,9 @@ lab.suite('happier-sequelize', () => {
     const server = new Hapi.Server();
     server.connection();
 
-    const sequelize = new Sequelize('shop', 'root', '', {
-      host: 'localhost',
-      port: 5432,
-      dialect: 'postgres'
-    });
-
     const onConnect = function (database) {
       server.log('onConnect called');
-    }
+    };
 
     const spy = Sinon.spy(onConnect);
 
@@ -39,23 +47,32 @@ lab.suite('happier-sequelize', () => {
         register: require('../lib'),
         options: [
           {
-            name: 'shop',
+            name: 'test',
             models: ['./test/models/**/*.js'],
-            sequelize: sequelize,
+            sequelize: getSequelize(),
             sync: true,
             forceSync: true,
-            onConnect: spy
+            onConnect: spy,
+            server:true
           }
         ]
       }
     ], (err) => {
+
       expect(err).to.not.exist();
-      expect(server.plugins['hapi-sequelize']['shop'].sequelize).to.be.an.instanceOf(Sequelize);
+
+      expect(server.plugins['happier-sequelize']['test'].sequelize).to.be.an.instanceOf(Sequelize);
+
+      let models = server.plugins['happier-sequelize']['test'].getModelsAsArray();
+
+      expect(models.length).to.equal(6);
+
+      expect(typeof models[0].server).to.equal(typeof server);
+
       expect(spy.getCall(0).args[0]).to.be.an.instanceOf(Sequelize);
-      server.plugins['hapi-sequelize']['shop'].sequelize.query('show tables', { type: Sequelize.QueryTypes.SELECT }).then((tables) => {
-        expect(tables.length).to.equal(6);
-        done();
-      });
+
+      done();
+
     })
   });
 
@@ -64,12 +81,6 @@ lab.suite('happier-sequelize', () => {
     const server = new Hapi.Server();
     server.connection();
 
-    const sequelize = new Sequelize('shop', 'root', '', {
-      host: 'localhost',
-      port: 5432,
-      dialect: 'postgres'
-    });
-
     server.register([
       {
         register: require('../lib'),
@@ -77,7 +88,7 @@ lab.suite('happier-sequelize', () => {
           {
             name: 'foo',
             models: ['./foo/**/*.js'],
-            sequelize: sequelize,
+            sequelize: getSequelize(),
             sync: true,
             forceSync: true
           }
