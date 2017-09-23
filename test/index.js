@@ -31,7 +31,7 @@ function getSequelize() {
 
 lab.suite('happier-sequelize', () => {
 
-  test('plugin works', { parallel: true }, (done) => {
+  test('plugin works', { parallel: false }, (done) => {
 
     const server = new Hapi.Server();
     server.connection();
@@ -53,7 +53,8 @@ lab.suite('happier-sequelize', () => {
             sync: true,
             forceSync: true,
             onConnect: spy,
-            server:true
+            injectServer:true,
+            injectLoggingFunction: true
           }
         ]
       }
@@ -64,6 +65,10 @@ lab.suite('happier-sequelize', () => {
       expect(server.plugins['happier-sequelize']['test'].sequelize).to.be.an.instanceOf(Sequelize);
 
       let models = server.plugins['happier-sequelize']['test'].getModelsAsArray();
+
+      models[0].log(['testing'], "My test logging message");
+
+      server.on('log', (update) => console.log(update));
 
       expect(models.length).to.equal(6);
 
@@ -76,7 +81,7 @@ lab.suite('happier-sequelize', () => {
     })
   });
 
-  test('plugin throws error when no models are found', { parallel: true }, (done) => {
+  test('plugin throws error when no models are found', { parallel: false }, (done) => {
 
     const server = new Hapi.Server();
     server.connection();
@@ -97,6 +102,50 @@ lab.suite('happier-sequelize', () => {
     ], (err) => {
       expect(err).to.exist();
       done();
+    })
+  });
+
+  test('plugin should be able to inject log into models', { parallel: false }, (done) => {
+
+    const server = new Hapi.Server();
+    server.connection();
+
+    const onConnect = function (database) {
+      server.log('onConnect called');
+    };
+
+    const spy = Sinon.spy(onConnect);
+
+    server.register([
+      {
+        register: require('../lib'),
+        options: [
+          {
+            name: 'test',
+            models: ['./test/models/**/*.js'],
+            sequelize: getSequelize(),
+            sync: true,
+            forceSync: true,
+            onConnect: spy,
+            injectServer:true,
+            injectLoggingFunction: true
+          }
+        ]
+      }
+    ], (err) => {
+
+      expect(err).to.not.exist();
+
+      let models = server.plugins['happier-sequelize']['test'].getModelsAsArray();
+
+      server.on('log', (update) => {
+        expect(update.data).to.equal("My test logging message");
+        console.log(update);
+        done();
+      });
+
+      models[0].log(['testing'], "My test logging message");
+
     })
   });
 });
