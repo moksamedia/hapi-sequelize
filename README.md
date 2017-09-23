@@ -16,3 +16,5 @@
 * Tests working with postgres
 * Dropped pg dependency to 6.4.2 to avoid this: https://github.com/feathersjs/generator-feathers/issues/246
 
+## 0.1.9
+* Added options injectLoggingFunction that will inject a .log method into the models that emits a Hapi log event
